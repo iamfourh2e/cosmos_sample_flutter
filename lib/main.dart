@@ -1,9 +1,9 @@
+import 'package:east_rider/screen/loading_resource/loading_resource_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'core/locale_provider.dart';
 import 'core/storage/storage_service.dart';
-import 'screen/counter/counter_screen.dart';
 import 'l10n/app_localizations.dart';
 
 void main() async {
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            home: const CounterScreen(),
+            home: LoadingResourceScreen(),
           );
         },
       ),

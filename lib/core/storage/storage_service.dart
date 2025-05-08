@@ -6,7 +6,7 @@ class StorageService {
   static const String _localeBoxName = 'locale_box';
   static const String _localeKey = 'current_locale';
   static Box? _localeBox;
-  
+
   static Future<void> init() async {
     debugPrint('Initializing StorageService...');
     final appDir = await path_provider.getApplicationDocumentsDirectory();
