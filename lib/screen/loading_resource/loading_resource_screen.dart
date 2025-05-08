@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:east_rider/core/ui_state.dart';
 import 'package:east_rider/helpers/widget_helper.dart';
+import 'package:east_rider/l10n/app_localizations.dart';
 import 'package:east_rider/screen/loading_resource/loading_resource_state.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +23,7 @@ class _LoadingResourceScreenState extends State<LoadingResourceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l18n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('East Rider'),
@@ -35,7 +39,12 @@ class _LoadingResourceScreenState extends State<LoadingResourceScreen> {
             var data = snapshot.data!;
             return switch (data) {
               Loading<bool>() => Center(child: const CircularProgressIndicator()),
-              Complete<bool>(data: final d) => Center(child: Text("$d"),),
+              Complete<bool>(data: final d) => Center(child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(l18n.localeName)
+                ],
+              ),),
               Error<bool>(message: final m) => Center(child: Text(m),),
             };
           }),
