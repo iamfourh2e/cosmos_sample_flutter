@@ -14,7 +14,7 @@ class _LoadingResourceScreenState extends State<LoadingResourceScreen> {
   @override
   void initState() {
     super.initState();
-    loadingResourceState.addErr();
+    loadingResourceState.checkComplete();
   }
 
   @override
