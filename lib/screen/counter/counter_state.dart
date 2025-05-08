@@ -1,22 +1,20 @@
-import 'package:flutter/foundation.dart';
+import 'package:east_rider/core/stream_state.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/ui_state.dart';
 
-class CounterState extends ChangeNotifier {
-  UiState<int> _state = const Complete(0);
-  UiState<int> get state => _state;
+class CounterState extends StreamState<int> {
+  CounterState() {
+    setState(Loading());
+    setState(Complete(0));
+  }
 
   void increment() {
-    _state = const Loading();
-    notifyListeners();
-
     // Simulate async operation
-    Future.delayed(const Duration(milliseconds: 500), () {
-      final currentValue = switch (_state) {
-        Complete(data: final value) => value,
-        _ => 0,
-      };
-      _state = Complete(currentValue + 1);
-      notifyListeners();
+    Future.delayed(0.ms, () {
+      if (currentState is Complete<int>) {
+        var currentValue = (currentState as Complete<int>).data;
+        setState(Complete(currentValue + 1));
+      }
     });
   }
 }

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'core/locale_provider.dart';
-import 'screen/counter/counter_state.dart';
+import 'core/storage/storage_service.dart';
 import 'screen/counter/counter_screen.dart';
 import 'l10n/app_localizations.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await StorageService.init();
   runApp(const MyApp());
 }
 
@@ -17,7 +19,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => CounterState()),
         ChangeNotifierProvider(create: (_) => LocaleProvider()),
       ],
       child: Consumer<LocaleProvider>(
