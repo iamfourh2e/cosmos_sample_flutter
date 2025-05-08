@@ -1,7 +1,10 @@
+import 'package:east_rider/models/user.dart';
 import 'package:flutter/material.dart';
 
 class AppProvider extends ChangeNotifier{
   String _url = "";
+  User? _user;
+  get user => _user;
   get url => _url;
   final Env env;
   AppProvider({required this.env}) {
@@ -11,6 +14,11 @@ class AppProvider extends ChangeNotifier{
       _url = "pro url";
     }
 
+  }
+
+  setUser(User user) {
+    _user = user;
+    notifyListeners();
   }
 }
 

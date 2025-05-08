@@ -19,11 +19,7 @@ class _CounterScreenState extends State<CounterScreen> {
     final l10n = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(l10n.appTitle),
-        actions: [WidgetHelper.locale(context)],
-      ),
+
       body: Center(
           child: StreamBuilder<UiState>(
               stream: counterStream.state$,

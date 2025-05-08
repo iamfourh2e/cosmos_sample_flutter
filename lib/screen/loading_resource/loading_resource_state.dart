@@ -1,15 +1,19 @@
 import 'package:east_rider/core/stream_state.dart';
 import 'package:east_rider/core/ui_state.dart';
+import 'package:east_rider/models/user.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-class LoadingState extends StreamState<bool> {
-  LoadingState() {
+class LoadingScreenState extends StreamState<User> {
+  LoadingScreenState() {
     setState(Loading());
   }
 
   checkComplete() {
-    Future.delayed(200.ms, () {
-        setState(Complete(true));
+    Future.delayed(500.ms, () {
+      setState(Complete(User(
+          name: "kevin",
+          age: 35,
+          address: Address(city: "Battambang", country: "cambodia"))));
     });
   }
 
@@ -18,5 +22,4 @@ class LoadingState extends StreamState<bool> {
       setState(Error("GG Well Played"));
     });
   }
-
 }
