@@ -1,4 +1,5 @@
 import 'package:east_rider/core/ui_state.dart';
+import 'package:east_rider/helpers/widget_helper.dart';
 import 'package:east_rider/screen/loading_resource/loading_resource_state.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,13 @@ class _LoadingResourceScreenState extends State<LoadingResourceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('East Rider'),
+        actions: [
+          WidgetHelper.themeToggle(context),
+          WidgetHelper.locale(context),
+        ],
+      ),
       body: StreamBuilder<UiState<bool>>(
           stream: loadingResourceState.state$,
           initialData: loadingResourceState.currentState,

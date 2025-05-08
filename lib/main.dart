@@ -4,6 +4,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'core/locale_provider.dart';
 import 'core/storage/storage_service.dart';
+import 'core/theme/base_theme.dart';
+import 'core/theme/theme_provider.dart';
 import 'l10n/app_localizations.dart';
 
 void main() async {
@@ -20,12 +22,14 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LocaleProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
-      child: Consumer<LocaleProvider>(
-        builder: (context, localeProvider, _) {
+      child: Consumer2<LocaleProvider, ThemeProvider>(
+        builder: (context, localeProvider, themeProvider, _) {
           return MaterialApp(
             title: 'East Rider',
             locale: localeProvider.locale,
+            themeMode: themeProvider.themeMode,
             localizationsDelegates: [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
@@ -39,6 +43,19 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
+              extensions: [
+                BaseTheme.light,
+              ],
+            ),
+            darkTheme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.deepPurple,
+                brightness: Brightness.dark,
+              ),
+              useMaterial3: true,
+              extensions: [
+                BaseTheme.dark,
+              ],
             ),
             home: LoadingResourceScreen(),
           );

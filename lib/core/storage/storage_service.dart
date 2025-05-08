@@ -7,11 +7,16 @@ class StorageService {
   static const String _localeKey = 'current_locale';
   static Box? _localeBox;
 
+  static const String _themeBoxName = 'theme_box';
+  static const String _themeKey = 'is_dark_mode';
+  static Box? _themeBox;
+
   static Future<void> init() async {
     debugPrint('Initializing StorageService...');
     final appDir = await path_provider.getApplicationDocumentsDirectory();
     Hive.init(appDir.path);
     await _openLocaleBox();
+    await _openThemeBox();
     debugPrint('StorageService initialized');
   }
 
@@ -21,6 +26,14 @@ class StorageService {
     }
     _localeBox = await Hive.openBox(_localeBoxName);
     return _localeBox!;
+  }
+
+  static Future<Box> _openThemeBox() async {
+    if (_themeBox != null && _themeBox!.isOpen) {
+      return _themeBox!;
+    }
+    _themeBox = await Hive.openBox(_themeBoxName);
+    return _themeBox!;
   }
 
   static Future<void> saveLocale(Locale locale) async {
@@ -36,10 +49,27 @@ class StorageService {
     return locale;
   }
 
+  static Future<void> saveThemeMode(bool isDarkMode) async {
+    debugPrint('Saving theme mode: $isDarkMode');
+    final box = await _openThemeBox();
+    await box.put(_themeKey, isDarkMode);
+  }
+
+  static Future<bool?> getThemeMode() async {
+    final box = await _openThemeBox();
+    final isDarkMode = box.get(_themeKey);
+    debugPrint('Retrieved theme mode: $isDarkMode');
+    return isDarkMode;
+  }
+
   static Future<void> dispose() async {
     if (_localeBox != null && _localeBox!.isOpen) {
       await _localeBox!.close();
       _localeBox = null;
+    }
+    if (_themeBox != null && _themeBox!.isOpen) {
+      await _themeBox!.close();
+      _themeBox = null;
     }
   }
 }
